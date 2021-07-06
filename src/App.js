@@ -21,7 +21,10 @@ function App() {
   const saveData = (userData) => {
     let users = JSON.parse(localStorage.getItem("users") || "[]");
     if (editIndex > -1) {
-      users[editIndex] = userData
+      users[editIndex] = userData;
+      updateEditIndex(-1);
+      setUser("");
+
     } else {
       users.push({
         // id: Math.ceil(Math.random()) * (1 + users.length),
@@ -52,7 +55,7 @@ function App() {
     <div className="container">
       <Header title="ToDo App" callBack={openForm} homeDelegation={backToHome} />
       {
-        show_form_status ? <MyForm callBack={saveData} editUser={user} /> :
+        show_form_status ? <MyForm editUserIndex={editIndex} callBack={saveData} editUser={user} /> :
           <Todos editUserData={editData} editUserIndex={editIndex} callBack={deleteData} />
       }
     </div>

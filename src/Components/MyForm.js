@@ -3,9 +3,11 @@ import React, { Component } from 'react'
 export default class MyForm extends Component {
     state = {
         user: {
-            title: this.props.editUser[0].title,
-            body: this.props.editUser[0].body
-        }
+            title: "" ,
+            body: ""
+        },
+        index:this.props.editUserIndex
+        
     }
     valueChanged = (e) => {
         const { currentTarget: input } = e
@@ -13,9 +15,17 @@ export default class MyForm extends Component {
         data[input.name] = input.value
         this.setState({ user: data })
     }
+    componentDidMount(){
+        if(this.state.index>-1){
+            this.setState({user:this.props.editUser[0]});
+        }
+        else{
+            this.setState({user:this.state.user});
+        }
+    }
     render() {
-        const { user } = this.state
-        
+        const { user } = this.state;
+        console.log(this.state.index);
         return (
             <div>
                 <form action="">
